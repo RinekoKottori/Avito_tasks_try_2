@@ -7,7 +7,7 @@
 | Allure            | 2.29.1  |
 | JDK               | 17.0.6  |
 | Maven             | 3.9.9   |
-| Selenide          | 7.7.3   |
+| Selenide          | 7.8.1   |
 | Webdriver manager | 5.9.3   |
 
 | Plugin         | Version | configuration |
