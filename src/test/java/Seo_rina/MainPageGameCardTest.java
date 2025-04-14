@@ -20,6 +20,8 @@ public class MainPageGameCardTest {
         driver = factory.getDriver();
         new MainPage(driver).openBrowser();
         new MainPage(driver).checkIsMainPageIsOpen();
+        new MainPage(driver).checkIsGameCardIsVisible();
+    
     }
 
     
@@ -33,12 +35,12 @@ public class MainPageGameCardTest {
         new MainPage(driver).clickOnCard(index);
         
         new CardGamePage(driver).isCardGamePageOpen();
+
         String cardGameName = new CardGamePage(driver).getCardGameName();
         
         new CardGamePage(driver).clickButtonBackToMain();
 
         assertEquals(mainPageCardName, cardGameName);
-        
     }
 
 }

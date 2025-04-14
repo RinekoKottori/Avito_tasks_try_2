@@ -3,6 +3,8 @@ package Seo_rina;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.Condition.attributeMatching;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
 import com.codeborne.selenide.ElementsCollection;
@@ -19,6 +21,8 @@ public class MainPage {
     private final By mainPage = By.className("ant-col");
     private final By listItemLocatorTemplate = By.xpath("(//li[@class='ant-list-item'])");
     private final By randomGameCard = By.className("_card_vlg32_1");
+    private final By paginationItems = By.xpath("//*[@id=\"root\"]/div/div[5]/div[1]/ul/li");
+
     
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -41,8 +45,7 @@ public class MainPage {
     @Step("Get all game cards")
     public ElementsCollection getGameCards() {
         ElementsCollection cards = $$(listItemLocatorTemplate);
-        return cards;
-        
+        return cards;    
     }
 
     @Step("Get one game card")
@@ -61,5 +64,19 @@ public class MainPage {
         getGameCardByIndex(index).shouldBe(visible).click();
     }
 
-  
+    @Step("Get numbers of page items")
+    public ElementsCollection getNumberOfPageItems() {
+        return $$(paginationItems).filterBy(attributeMatching("class", ".*ant-pagination-item-.*"));
+    }
+
+    @Step("Click on pagination number-item")
+    public void clickOnPaginationNumberItem(String title) {
+       getNumberOfPageItems().findBy(attribute("title", title)).shouldBe(visible).click();
+      }
+
+    @Step("Check is new page open")
+    public void checkIsNewPageOpen(String title) {
+        getNumberOfPageItems().findBy(attribute("title", title)).shouldHave(attributeMatching("class", ".*ant-pagination-item-active.*"));
+    }
+
 }
