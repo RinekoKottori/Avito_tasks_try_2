@@ -23,7 +23,7 @@ public class MainPagePaginationTest {
 
     
     @ParameterizedTest
-    @DisplayName("Check is pagination is working")
+    @DisplayName("Check is pagination by click on number of page is working")
     @MethodSource("IsClickOnNumberInPaginationCorrect")
     void checkIsPaginationIsWorking(String title) {
         new MainPage(driver).clickOnPaginationNumberItem(title);
@@ -35,6 +35,7 @@ public class MainPagePaginationTest {
                 "1",
                 "2",
                 "3",
+                "1",
                 "4",
                 "5",
                 "6",
