@@ -19,6 +19,14 @@
 
 `mvn clean test`
 
-# See results of tests in allure report
+# See results of tests in allure report in browser
 
 `mvn allure:serve`
+
+# Bug reports for 1 task
+
+Bug-reports_First_Task.md
+
+# Bug reports for 2 task
+
+BUGS.md
