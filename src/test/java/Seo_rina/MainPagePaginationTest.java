@@ -1,11 +1,9 @@
 package Seo_rina;
 
-import java.util.stream.Stream;
-
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
 public class MainPagePaginationTest {
@@ -14,66 +12,75 @@ public class MainPagePaginationTest {
     public static DriverRule factory = new DriverRule();
 
     @BeforeAll
-     static void setup() {
+    static void setup() {
         driver = factory.getDriver();
         new MainPage(driver).openBrowser();
         new MainPage(driver).checkIsMainPageIsOpen();
-       
     }
 
-    
-    @ParameterizedTest
-    @DisplayName("Check is pagination by click on number of page is working")
-    @MethodSource("IsClickOnNumberInPaginationCorrect")
-    void checkIsPaginationIsWorking(String title) {
-        new MainPage(driver).clickOnPaginationNumberItem(title);
-        new MainPage(driver).checkIsNewPageOpen(title);
+    @AfterEach
+    public void returnToDefaultPage() {
+        new MainPage(driver).clickOnPaginationNumberItem("1");
     }
 
-    private static Stream<String> IsClickOnNumberInPaginationCorrect() {
-        return Stream.of(
-                "1",
-                "2",
-                "3",
-                "1",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                "29",
-                "30",
-                "31",
-                "32",
-                "33",
-                "34",
-                "35",
-                "36",
-                "37",
-                "38",
-                "39",
-                "40",
-                "41"
-        );
+    @Test
+    @DisplayName("Check is click on double arrow right is open next 5 page")
+    public void testPaginationRightDoubleArrow() {
+        new MainPage(driver).clickOnRightDoubleArrow();
+        new MainPage(driver).checkIsNewPageOpen("6");
+        
+    }
+
+    @Test
+    @DisplayName("Check is click on double arrow left is open previos 5 page")
+    public void testPaginationLeftDoubleArrow() {
+        new MainPage(driver).clickOnPaginationNumberItem("5");
+        new MainPage(driver).clickOnPaginationNumberItem("7");
+        new MainPage(driver).clickOnLeftDoubleArrow();
+        new MainPage(driver).checkIsNewPageOpen("2");
+        
+    }
+
+    @Test
+    @DisplayName("Check is click on arrow right is open next page")
+    public void testPaginationRightArrow() {
+        new MainPage(driver).clickOnRightArrow();
+        new MainPage(driver).checkIsNewPageOpen("2");
+        
+    }
+
+    @Test
+    @DisplayName("Check is click on arrow left is open prev page")
+    public void testPaginationLeftArrow() {
+        new MainPage(driver).clickOnPaginationNumberItem("3");
+        new MainPage(driver).clickOnLeftArrow();
+        new MainPage(driver).checkIsNewPageOpen("2");
+        
+    }
+
+    @Test
+    @DisplayName("Check is click on arrow right when last page open do not clickable")
+    public void testPaginationRightArrowDoNotClickable() {
+        new MainPage(driver).clickOnPaginationNumberItem("41");
+        new MainPage(driver).clickOnRightArrow();
+        new MainPage(driver).clickOnArrowRightOnLastPage();
+        new MainPage(driver).checkIsNewPageOpen("41");
+        
+    }
+
+    @Test
+    @DisplayName("Check is click on arrow left when first page open do not clickable")
+    public void testPaginationLeftArrowDoNotClickable() {
+        new MainPage(driver).clickOnLeftArrow();
+        new MainPage(driver).clickOnArrowLeftOnFirstPage();
+        new MainPage(driver).checkIsNewPageOpen("1");
+        
+    }
+
+    @Test 
+    @DisplayName("Check that select menu of cards that shows on page is opened when click on button")
+    public void testOpenChangerAmountOfCards(){
+        new MainPage(driver).clickOnChangerOfCardsAmount();
+        new MainPage(driver).checkThatSelectMenuIsOpened();
     }
 }
