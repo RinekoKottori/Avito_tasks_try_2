@@ -32,7 +32,7 @@ public class MainPagePaginationTest {
     }
 
     @Test
-    @DisplayName("Check is click on double arrow left is open previos 5 page")
+    @DisplayName("Check is click on double arrow left is open previous 5 page")
     public void testPaginationLeftDoubleArrow() {
         new MainPage(driver).clickOnPaginationNumberItem("5");
         new MainPage(driver).clickOnPaginationNumberItem("7");
